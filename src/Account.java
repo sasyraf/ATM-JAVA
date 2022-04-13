@@ -1,4 +1,6 @@
 /* Account, Withdraw, and Deposit */
+/* Invariant Implementation*/
+
 
 import java.text.DecimalFormat;
 import java.util.Scanner;
