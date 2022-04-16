@@ -75,34 +75,45 @@ public class Account {
 		return savingBalance;
 	}
 
-	/* Customer Checking Account Withdraw input */
+	void Invariant(){
+		assert checkingBalance > 0 || checkingBalance == 0: "Balance cannot be negative.";
+		assert savingBalance > 0 || savingBalance == 0: "Balance cannot be negative.";
+	}
 
+	/* Customer Checking Account Withdraw input */
 	public void getCheckingWithdrawInput() {
 		System.out.println("Checking Account Balance: " + moneyFormat.format(checkingBalance));
 		System.out.print("Amount you want to withdraw from Checking Account: ");
 		double amount = input.nextDouble();
+		//pre-condition
+		assert amount > 0 : "Input value must be postive number.";
+		assert checkingBalance > 0 : "Balance must be greater than 0 to make withdrawal.";
+		assert amount < checkingBalance : "Withdrawal amount must be less than balance.";
 
-		if ((checkingBalance - amount) >= 0) {
-			calcCheckingWithdraw(amount);
-			System.out.println("New Checking Account balance: " + moneyFormat.format(checkingBalance) + "\n");
-		} else {
-			System.out.println("Balance cannot be negative." + "\n");
-		}
+		//process
+		calcCheckingWithdraw(amount);
+		
+		//post-condition
+		Invariant();
+		System.out.println("New Checking Account balance: " + moneyFormat.format(checkingBalance) + "\n");	
 	}
 
 	/* Customer Saving Account Withdraw input */
-
 	public void getSavingWithdrawInput() {
 		System.out.println("Saving Account Balance: " + moneyFormat.format(savingBalance));
 		System.out.print("Amount you want to withdraw from Saving Account: ");
 		double amount = input.nextDouble();
+		//pre-condition
+		assert amount > 0 : "Input value must be postive number.";
+		assert savingBalance > 0 : "Balance must be greater than 0 to make withdrawal.";
+		assert amount < savingBalance : "Withdrawal amount must be less than balance.";
+		
+		//process
+		calcSavingWithdraw(amount);
 
-		if ((savingBalance - amount) >= 0) {
-			calcSavingWithdraw(amount);
-			System.out.println("New Saving Account balance: " + savingBalance + "\n");
-		} else {
-			System.out.println("Balance cannot be negative." + "\n");
-		}
+		//post-condition
+		Invariant();
+		System.out.println("New Saving Account balance: " + savingBalance + "\n");
 	}
 
 	/* Customer Checking Account Deposit input */
@@ -111,13 +122,15 @@ public class Account {
 		System.out.println("Checking Account Balance: " + moneyFormat.format(checkingBalance));
 		System.out.print("Amount you want to deposit from Checking Account: ");
 		double amount = input.nextDouble();
+		//pre-condition
+		assert amount > 0 : "Input value must be postive number.";
 
-		if ((checkingBalance + amount) >= 0) {
-			calcCheckingDeposit(amount);
-			System.out.println("New Checking Account balance: " + moneyFormat.format(checkingBalance) + "\n");
-		} else {
-			System.out.println("Balance cannot be negative." + "\n");
-		}
+		//process
+		calcCheckingDeposit(amount);
+
+		//post-condition
+		Invariant();
+		System.out.println("New Checking Account balance: " + moneyFormat.format(checkingBalance) + "\n");
 	}
 
 	/* Customer Saving Account Deposit input */
@@ -126,13 +139,15 @@ public class Account {
 		System.out.println("Saving Account Balance: " + moneyFormat.format(savingBalance));
 		System.out.print("Amount you want to deposit from Saving Account: ");
 		double amount = input.nextDouble();
-
-		if ((savingBalance + amount) >= 0) {
-			calcSavingDeposit(amount);
-			System.out.println("New Saving Account balance: " + moneyFormat.format(savingBalance) + "\n");
-		} else {
-			System.out.println("Balance cannot be negative." + "\n");
-		}
+		//pre-condition
+		assert amount > 0 : "Input value must be postive number.";
+		
+		//process
+		calcSavingDeposit(amount);
+		
+		//post-condition
+		Invariant();
+		System.out.println("New Saving Account balance: " + moneyFormat.format(savingBalance) + "\n");
 	}
 
 	private int customerNumber;

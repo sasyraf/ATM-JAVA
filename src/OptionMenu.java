@@ -17,27 +17,27 @@ public class OptionMenu extends Account {
 	public void getLogin() throws IOException {
 		int x = 1;
 
-		do {
-			try {
-				/*
-				 * Accounts in a HashMap, key = customer number, value = pin
-				 * number
-				 */
-				data.put(123456789, 1234);
-				data.put(123456780, 1230);
+		do {	
+			/*
+			 * Accounts in a HashMap, key = customer number, value = pin
+			 * number
+			 */
+			data.put(123456789, 1234);
+			data.put(123456780, 1230);
+			//pre-condition
+			assert !data.isEmpty() :"Must have account data to proceed.";
 
-				System.out.println("Welcome to the ATM Project!");
+			//process
+			System.out.println("Welcome to the ATM Project!");
 
-				System.out.print("Enter Your Customer Number: ");
-				setCustomerNumber(menuInput.nextInt());
+			System.out.print("Enter Your Customer Number: ");
+			setCustomerNumber(menuInput.nextInt());
 
-				System.out.print("Enter Your Pin Number: ");
-				setPinNumber(menuInput.nextInt());
-			} catch (Exception e) {
-				System.out.println("\n" + "Invalid character(s). Only numbers." + "\n");
-				x = 2;
-			}
+			System.out.print("Enter Your Pin Number: ");
+			setPinNumber(menuInput.nextInt());
+			
 			for (Entry<Integer, Integer> entry : data.entrySet()) {
+				//post-condition
 				if (entry.getKey() == getCustomerNumber() && entry.getValue() == getPinNumber()) {
 					getAccountType();
 				}
